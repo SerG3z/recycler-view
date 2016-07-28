@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.View;
 
 /**
  * Created by user on 28.07.16.
@@ -44,10 +45,12 @@ public class SimpleItemTouchCallback extends ItemTouchHelper.Callback {
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                             float dX, float dY, int actionState, boolean isCurrentlyActive) {
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            float alpha = Math.abs(dX) / viewHolder.itemView.getWidth();
-            viewHolder.itemView.setTranslationX(dX);
+            View itemView = viewHolder.itemView;
+            float alpha = Math.abs(dX) / itemView.getWidth();
+            itemView.setTranslationX(dX);
             paint.setAlpha((int) (255 * alpha));
-            c.drawRect(viewHolder.itemView.getLeft(), viewHolder.itemView.getTop(), dX, viewHolder.itemView.getBottom(), paint);
+            c.drawRect(itemView.getLeft(), itemView.getTop(), itemView.getX() + dX,
+                    itemView.getBottom(), paint);
         } else {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
