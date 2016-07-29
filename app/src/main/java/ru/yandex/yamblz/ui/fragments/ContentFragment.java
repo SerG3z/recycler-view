@@ -30,6 +30,7 @@ public class ContentFragment extends BaseFragment {
     private boolean flagDecoration = false;
     private DefaultItemAnimator animator = new DefaultItemAnimator();
     private CustomItemDecoration customItemDecoration = new CustomItemDecoration();
+    private FrameItemDecoration frameItemDecoration;
 
     @NonNull
     @Override
@@ -76,10 +77,11 @@ public class ContentFragment extends BaseFragment {
 
         gridLayoutManager = new GridLayoutManager(getActivity(), columns);
         recyclerView.setLayoutManager(gridLayoutManager);
-        animator.setChangeDuration(1500);
+        animator.setAddDuration(1000);
         recyclerView.setItemAnimator(animator);
-
-        ItemTouchHelper.Callback callback = new SimpleItemTouchCallback(contentAdapter);
+        frameItemDecoration = new FrameItemDecoration(getContext());
+        ItemTouchHelper.Callback callback = new SimpleItemTouchCallback(contentAdapter, frameItemDecoration, getContext());
+        recyclerView.addItemDecoration(frameItemDecoration);
 
         itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);

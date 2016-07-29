@@ -23,12 +23,7 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
     @Override
     public ContentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ContentHolder contentHolder = new ContentHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.content_item, parent, false));
-        contentHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onChangeItemColor(contentHolder.getAdapterPosition());
-            }
-        });
+        contentHolder.itemView.setOnClickListener(v -> onChangeItemColor(contentHolder.getAdapterPosition()));
         return contentHolder;
     }
 
@@ -57,7 +52,7 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
 
     private Integer getColorForPosition(int position, boolean flagCreate) {
         if (flagCreate) {
-            if (position >= colors.size()) {
+            while (position >= colors.size()) {
                 colors.add(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
             }
             return colors.get(position);
