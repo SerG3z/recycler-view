@@ -22,12 +22,19 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
 
     @Override
     public ContentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ContentHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.content_item, parent, false));
+        ContentHolder contentHolder = new ContentHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.content_item, parent, false));
+        contentHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onChangeItemColor(contentHolder.getAdapterPosition());
+            }
+        });
+        return contentHolder;
     }
 
     @Override
     public void onBindViewHolder(ContentHolder holder, int position) {
-        holder.bind(createColorForPosition(position));
+        holder.bind(getColorForPosition(position, true));
     }
 
     @Override
@@ -35,12 +42,30 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
         return Integer.MAX_VALUE;
     }
 
-    private Integer createColorForPosition(int position) {
-        if (position >= colors.size()) {
-            colors.add(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
-        }
+    @Override
+    public long getItemId(int position) {
+        getColorForPosition(position, true);
         return colors.get(position);
     }
+
+    private void onChangeItemColor(int position) {
+        if (position != RecyclerView.NO_POSITION) {
+            colors.set(position, getColorForPosition(position, false));
+            notifyItemChanged(position);
+        }
+    }
+
+    private Integer getColorForPosition(int position, boolean flagCreate) {
+        if (flagCreate) {
+            if (position >= colors.size()) {
+                colors.add(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
+            }
+            return colors.get(position);
+        } else {
+            return Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
+        }
+    }
+
 
     @Override
     public boolean onItemMove(int startPosition, int endPosition) {
