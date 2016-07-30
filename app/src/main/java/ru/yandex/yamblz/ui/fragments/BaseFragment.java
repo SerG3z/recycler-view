@@ -31,7 +31,7 @@ public abstract class BaseFragment extends Fragment {
         viewBinder = ButterKnife.bind(this, view);
     }
 
-    protected void runOnUiThreadIfFragmentAlive(@NonNull Runnable runnable) {
+    void runOnUiThreadIfFragmentAlive(@NonNull Runnable runnable) {
         if (Looper.myLooper() == Looper.getMainLooper() && isFragmentAlive()) {
             runnable.run();
         } else {

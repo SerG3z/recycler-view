@@ -20,7 +20,7 @@ public class FrameItemDecoration extends RecyclerView.ItemDecoration {
     private int indexSecondSelectedItem = -1;
     private Context context;
 
-    public FrameItemDecoration(Context context) {
+    FrameItemDecoration(Context context) {
         this.context = context;
     }
 
@@ -34,8 +34,10 @@ public class FrameItemDecoration extends RecyclerView.ItemDecoration {
         super.onDrawOver(c, parent, state);
         if (indexFirstSelectedItem != -1 && indexSecondSelectedItem != -1) {
 
-            RecyclerView.ViewHolder child1Holder = parent.findViewHolderForAdapterPosition(indexFirstSelectedItem);
-            RecyclerView.ViewHolder child2Holder = parent.findViewHolderForAdapterPosition(indexSecondSelectedItem);
+            RecyclerView.ViewHolder child1Holder
+                    = parent.findViewHolderForAdapterPosition(indexFirstSelectedItem);
+            RecyclerView.ViewHolder child2Holder
+                    = parent.findViewHolderForAdapterPosition(indexSecondSelectedItem);
 
             if (child1Holder != null && child2Holder != null) {
                 Drawable drawable = ContextCompat.getDrawable(context, R.drawable.crown);

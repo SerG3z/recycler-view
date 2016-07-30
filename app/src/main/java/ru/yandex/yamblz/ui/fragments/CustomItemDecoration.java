@@ -10,14 +10,14 @@ import android.view.View;
  * Created by user on 29.07.16.
  */
 
-public class CustomItemDecoration extends RecyclerView.ItemDecoration {
-    private Paint paintBlue;
+class CustomItemDecoration extends RecyclerView.ItemDecoration {
+    private Paint paint;
 
-    public CustomItemDecoration() {
-        paintBlue = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paintBlue.setColor(Color.BLUE);
-        paintBlue.setStyle(Paint.Style.STROKE);
-        paintBlue.setStrokeWidth(10);
+    CustomItemDecoration() {
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.BLUE);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(10);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class CustomItemDecoration extends RecyclerView.ItemDecoration {
                         layoutManager.getDecoratedTop(child),
                         layoutManager.getDecoratedRight(child),
                         layoutManager.getDecoratedBottom(child),
-                        paintBlue);
+                        paint);
             }
         }
     }

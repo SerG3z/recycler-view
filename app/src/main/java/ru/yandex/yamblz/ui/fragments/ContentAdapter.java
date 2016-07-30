@@ -37,12 +37,6 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
         return Integer.MAX_VALUE;
     }
 
-    @Override
-    public long getItemId(int position) {
-        getColorForPosition(position, true);
-        return colors.get(position);
-    }
-
     private void onChangeItemColor(int position) {
         if (position != RecyclerView.NO_POSITION) {
             colors.set(position, getColorForPosition(position, false));
