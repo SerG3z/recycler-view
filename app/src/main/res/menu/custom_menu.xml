@@ -5,8 +5,22 @@
     <item
         android:id="@+id/decoration"
         android:orderInCategory="1"
-        android:title="Decorations"
+        android:title="@string/decorations"
         app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_crop" />
+
+    <item
+        android:id="@+id/columnsSize"
+        android:orderInCategory="3"
+        android:title="@string/columns_size_30"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_dialog_dialer" />
+
+    <item
+        android:id="@+id/animation"
+        android:orderInCategory="2"
+        android:title="@string/scroll_animation"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_set_as" />
 
 </menu>

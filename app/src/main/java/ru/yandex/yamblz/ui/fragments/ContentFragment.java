@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import ru.yandex.yamblz.R;
 import ru.yandex.yamblz.ui.adapters.SimpleItemTouchCallback;
 
@@ -25,15 +27,20 @@ public class ContentFragment extends BaseFragment {
     @BindView(R.id.rv)
     RecyclerView recyclerView;
 
+
+    private Unbinder unbinder;
     private GridLayoutManager gridLayoutManager;
     private int columns;
     private boolean flagDecoration;
+    private boolean flag = true;
     private CustomItemDecoration customItemDecoration;
+    private AnimationAppearanceScrollListener animationAppearanceScrollListener;
 
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_content, container, false);
+        unbinder = ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
         return view;
     }
@@ -47,7 +54,7 @@ public class ContentFragment extends BaseFragment {
         } else {
             columns = 1;
         }
-
+        animationAppearanceScrollListener = new AnimationAppearanceScrollListener();
         customItemDecoration = new CustomItemDecoration();
         final ContentAdapter contentAdapter = new ContentAdapter();
         recyclerView.setAdapter(contentAdapter);
@@ -60,7 +67,6 @@ public class ContentFragment extends BaseFragment {
         ItemTouchHelper.Callback callback = new SimpleItemTouchCallback(contentAdapter, frameItemDecoration, getContext());
         recyclerView.addItemDecoration(frameItemDecoration);
         recyclerView.setItemViewCacheSize(CACHE_SIZE);
-        recyclerView.addOnScrollListener(new AnimationAppearanceScrollListener());
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -78,6 +84,19 @@ public class ContentFragment extends BaseFragment {
         switch (item.getItemId()) {
             case R.id.decoration:
                 setItemDecorator();
+                return false;
+            case R.id.animation:
+                if (flag) {
+                    recyclerView.addOnScrollListener(animationAppearanceScrollListener);
+                    flag = false;
+                } else {
+                    recyclerView.clearOnScrollListeners();
+                    flag = true;
+                }
+                return false;
+            case R.id.columnsSize:
+                columns = 30;
+                setSpanCountColumns();
                 return false;
         }
         return super.onOptionsItemSelected(item);
@@ -116,5 +135,11 @@ public class ContentFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_SAVE_COLUMNS, columns);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

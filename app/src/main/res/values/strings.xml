@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Yamblz</string>
     <string name="content">Hello</string>
+    <string name="columns_size_30">Columns size 30</string>
+    <string name="decorations">Decorations</string>
+    <string name="scroll_animation">Scroll animation</string>
 </resources>

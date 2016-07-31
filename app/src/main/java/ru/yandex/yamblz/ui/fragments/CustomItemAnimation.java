@@ -59,9 +59,9 @@ public class CustomItemAnimation extends DefaultItemAnimator {
 
 
         ObjectAnimator fadeToBlack = ObjectAnimator
-                .ofArgb(holder.itemView, "backgroundColor", preColorTextInfo.color, Color.MAGENTA);
+                .ofArgb(holder.itemView, "backgroundColor", preColorTextInfo.color, Color.BLACK);
         ObjectAnimator fadeFromBlack = ObjectAnimator
-                .ofArgb(holder.itemView, "backgroundColor", Color.MAGENTA, postColorTextInfo.color);
+                .ofArgb(holder.itemView, "backgroundColor", Color.BLACK, postColorTextInfo.color);
         AnimatorSet bgAnim = new AnimatorSet();
         bgAnim.playSequentially(fadeToBlack, fadeFromBlack);
 
