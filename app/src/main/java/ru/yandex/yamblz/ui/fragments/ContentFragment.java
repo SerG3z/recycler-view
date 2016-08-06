@@ -22,7 +22,7 @@ import ru.yandex.yamblz.ui.adapters.SimpleItemTouchCallback;
 public class ContentFragment extends BaseFragment {
 
     private static final String KEY_SAVE_COLUMNS = "save_columns";
-    private static final int CACHE_SIZE = 180;
+//    private static final int CACHE_SIZE = 180;
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
@@ -66,8 +66,8 @@ public class ContentFragment extends BaseFragment {
         FrameItemDecoration frameItemDecoration = new FrameItemDecoration(getContext());
         ItemTouchHelper.Callback callback = new SimpleItemTouchCallback(contentAdapter, frameItemDecoration, getContext());
         recyclerView.addItemDecoration(frameItemDecoration);
-        recyclerView.setItemViewCacheSize(CACHE_SIZE);
-
+//        recyclerView.setItemViewCacheSize(CACHE_SIZE);
+        recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 100);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
