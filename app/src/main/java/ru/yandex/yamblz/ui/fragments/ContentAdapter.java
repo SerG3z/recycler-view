@@ -29,7 +29,7 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
 
     @Override
     public void onBindViewHolder(ContentHolder holder, int position) {
-        holder.bind(getColorForPosition(position, true));
+        holder.bind(createColorForPosition(position));
     }
 
     @Override
@@ -39,22 +39,21 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
 
     private void onChangeItemColor(int position) {
         if (position != RecyclerView.NO_POSITION) {
-            colors.set(position, getColorForPosition(position, false));
+            colors.set(position, getColor());
             notifyItemChanged(position);
         }
     }
 
-    private Integer getColorForPosition(int position, boolean flagCreate) {
-        if (flagCreate) {
-            while (position >= colors.size()) {
-                colors.add(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
-            }
-            return colors.get(position);
-        } else {
-            return Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
+    private Integer createColorForPosition(int position) {
+        while (position >= colors.size()) {
+            colors.add(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
         }
+        return colors.get(position);
     }
 
+    private int getColor() {
+        return Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
+    }
 
     @Override
     public boolean onItemMove(int startPosition, int endPosition) {

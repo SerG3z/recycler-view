@@ -14,21 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import ru.yandex.yamblz.R;
 import ru.yandex.yamblz.ui.adapters.SimpleItemTouchCallback;
 
 public class ContentFragment extends BaseFragment {
 
     private static final String KEY_SAVE_COLUMNS = "save_columns";
-//    private static final int CACHE_SIZE = 180;
 
     @BindView(R.id.rv)
     RecyclerView recyclerView;
 
-
-    private Unbinder unbinder;
     private GridLayoutManager gridLayoutManager;
     private int columns;
     private boolean flagDecoration;
@@ -40,7 +35,6 @@ public class ContentFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_content, container, false);
-        unbinder = ButterKnife.bind(this, view);
         setHasOptionsMenu(true);
         return view;
     }
@@ -66,7 +60,6 @@ public class ContentFragment extends BaseFragment {
         FrameItemDecoration frameItemDecoration = new FrameItemDecoration(getContext());
         ItemTouchHelper.Callback callback = new SimpleItemTouchCallback(contentAdapter, frameItemDecoration, getContext());
         recyclerView.addItemDecoration(frameItemDecoration);
-//        recyclerView.setItemViewCacheSize(CACHE_SIZE);
         recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 100);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -135,11 +128,5 @@ public class ContentFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_SAVE_COLUMNS, columns);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }
